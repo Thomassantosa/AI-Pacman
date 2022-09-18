@@ -108,7 +108,7 @@ def depthFirstSearch(problem):
             while(i>=0):
                 if (next[i][0] not in Visited):
                     if problem.isGoalState(next[i][0]):
-                        print 'Find Goal'
+                        print ('Find Goal')
                         motion.insert(0, next[i][1])
                         while(Stack.isEmpty()==0):
                             direction = Stack.pop()[1]
@@ -164,7 +164,7 @@ def breadthFirstSearch(problem):
         w = problem.getSuccessors(v[0])
         for i in range( len(w) ):
             if problem.isGoalState(w[i][0]):
-                print 'Find Goal'
+                print ('Find Goal')
                 motion.insert(0, w[i][1])
                 cur_state = v
                 while(1):
@@ -228,7 +228,7 @@ def uniformCostSearch(problem):
                 break;
 
         if problem.isGoalState(v[0]):
-            print 'Find Goal'          
+            print ('Find Goal')          
             for node in Nodes:
                     if node.getState() == v[0]:
                         cur_state = node.getParent()
@@ -310,7 +310,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                 break;
         
         if problem.isGoalState(v[0]):
-            print 'Find Goal'        
+            print ('Find Goal')        
             for node in Nodes:
                     if node.getState() == v[0]:
                         cur_state = node.getParent()

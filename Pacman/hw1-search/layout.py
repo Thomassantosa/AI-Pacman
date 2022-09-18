@@ -12,6 +12,8 @@
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
 
+from distutils.log import debug
+from functools import reduce #tambahan
 from util import manhattanDistance
 from game import Grid
 import os
@@ -130,16 +132,19 @@ class Layout:
             self.numGhosts += 1
 def getLayout(name, back = 2):
     if name.endswith('.lay'):
-        layout = tryToLoad('layouts/' + name)
+        layout = tryToLoad('Pacman/hw1-search/layouts/' + name)
         if layout == None: layout = tryToLoad(name)
+        print("A")
     else:
-        layout = tryToLoad('layouts/' + name + '.lay')
+        layout = tryToLoad('Pacman/hw1-search/layouts/' + name + '.lay')
         if layout == None: layout = tryToLoad(name + '.lay')
+        print("B")
     if layout == None and back >= 0:
         curdir = os.path.abspath('.')
         os.chdir('..')
         layout = getLayout(name, back -1)
         os.chdir(curdir)
+        print("C")
     return layout
 
 def tryToLoad(fullname):
