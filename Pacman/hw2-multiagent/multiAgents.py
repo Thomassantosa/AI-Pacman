@@ -79,7 +79,8 @@ class ReflexAgent(Agent):
         foodPos = newFood.asList()
         foodCount = len(foodPos)
         closestDistance = 1e6
-        for i in xrange(foodCount):
+        # for i in xrange(foodCount):
+        for i in range(foodCount):
           distance = manhattanDistance(foodPos[i],newPos) + foodCount*100
           if distance < closestDistance:
             closestDistance = distance
@@ -88,7 +89,8 @@ class ReflexAgent(Agent):
           closestDistance = 0
         score = -closestDistance
 
-        for i in xrange(len(newGhostStates)):
+        # for i in xrange(len(newGhostStates)):
+        for i in range(len(newGhostStates)):
           ghostPos = successorGameState.getGhostPosition(i+1)
           if manhattanDistance(newPos,ghostPos)<=1 :
             score -= 1e6

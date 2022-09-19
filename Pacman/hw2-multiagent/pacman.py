@@ -289,11 +289,11 @@ class ClassicGameRules:
         if state.isLose(): self.lose(state, game)
 
     def win( self, state, game ):
-        if not self.quiet: print "Pacman emerges victorious! Score: %d" % state.data.score
+        if not self.quiet: print ("Pacman emerges victorious! Score: %d" % state.data.score)
         game.gameOver = True
 
     def lose( self, state, game ):
-        if not self.quiet: print "Pacman died! Score: %d" % state.data.score
+        if not self.quiet: print ("Pacman died! Score: %d" % state.data.score)
         game.gameOver = True
 
     def getProgress(self, game):
@@ -301,9 +301,9 @@ class ClassicGameRules:
 
     def agentCrash(self, game, agentIndex):
         if agentIndex == 0:
-            print "Pacman crashed"
+            print ("Pacman crashed")
         else:
-            print "A ghost crashed"
+            print ("A ghost crashed")
 
     def getMaxTotalTime(self, agentIndex):
         return self.timeout
@@ -573,7 +573,7 @@ def readCommand( argv ):
 
     # Special case: recorded games don't use the runGames method or args structure
     if options.gameToReplay != None:
-        print 'Replaying recorded game %s.' % options.gameToReplay
+        print ('Replaying recorded game %s.' % options.gameToReplay)
         import cPickle
         f = open(options.gameToReplay)
         try: recorded = cPickle.load(f)
@@ -586,25 +586,41 @@ def readCommand( argv ):
 
 def loadAgent(pacman, nographics):
     # Looks through all pythonPath Directories for the right module,
-    pythonPathStr = os.path.expandvars("$PYTHONPATH")
+    # pythonPathStr = os.path.expandvars("$PYTHONPATH")
+    pythonPathStr = "C:/Users/SISTEM/OneDrive/Documents/Python_VSCodeProjects/AI-Pacman-1/Pacman/hw2-multiagent/"
+    # pythonPathStr = ''.join(sys.path)
+    print("LoadAgent---")
+    print(pythonPathStr)
     if pythonPathStr.find(';') == -1:
         pythonPathDirs = pythonPathStr.split(':')
     else:
         pythonPathDirs = pythonPathStr.split(';')
     pythonPathDirs.append('.')
+    print("\n\n")
+    print(pythonPathDirs)
 
     for moduleDir in pythonPathDirs:
+        print("G")
+        # if not os.path.isdir(moduleDir): continue; print("F")
         if not os.path.isdir(moduleDir): continue
+        print("F")
         moduleNames = [f for f in os.listdir(moduleDir) if f.endswith('gents.py')]
+        print(moduleNames)
         for modulename in moduleNames:
+            print("H")
             try:
                 module = __import__(modulename[:-3])
+                print("A")
             except ImportError:
+                print("B")
                 continue
             if pacman in dir(module):
+                print("C")
                 if nographics and modulename == 'keyboardAgents.py':
+                    print("D")
                     raise Exception('Using the keyboard requires graphics (not text display)')
                 return getattr(module, pacman)
+    print("E")
     raise Exception('The agent ' + pacman + ' is not specified in any *Agents.py.')
 
 def replayGame( layout, actions, display ):
@@ -667,12 +683,12 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
             if len(game.state.getCapsules())==0:
                 CapCount += 1
 
-        print 'The game finished all capsules', float(CapCount)/float(numGames)
-        print 'Average Score:', sum(scores) / float(len(scores))
-        print 'Average Win Score', float(sum(AvgWin))/float(len(AvgWin))
-        print 'Scores:       ', ', '.join([str(score) for score in scores])
-        print 'Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate)
-        print 'Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins])
+        print ('The game finished all capsules', float(CapCount)/float(numGames))
+        print ('Average Score:', sum(scores) / float(len(scores)))
+        print ('Average Win Score', float(sum(AvgWin))/float(len(AvgWin)))
+        print ('Scores:       ', ', '.join([str(score) for score in scores]))
+        print ('Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate))
+        print ('Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins]))
 
     return games
 
